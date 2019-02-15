@@ -22,13 +22,13 @@ def get_weight_variable(shape, regularizer):
 #define the progress of the feedforward neural network
 def inference(input_tensor, regularizer):
     #layer1
-    with tf.variable_scope("layer1"):
+    with tf.variable_scope("layer1", reuse=None):
         weights = get_weight_variable([INPUT_NODE, LAYER1_NODE], regularizer)
         biases = tf.get_variable("biases", [LAYER1_NODE],
                                  initializer=tf.constant_initializer(0.0))
         layer1 = tf.nn.relu(tf.matmul(input_tensor, weights) + biases)
     
-    with tf.variable("layer2"):
+    with tf.variable_scope("layer2", reuse=None):
         weights = get_weight_variable([LAYER1_NODE, OUTPUT_NODE], regularizer)
         biases = tf.get_variable("biases", [OUTPUT_NODE],
                                  initializer=tf.constant_initializer(0.0))
